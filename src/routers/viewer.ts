@@ -31,6 +31,10 @@ const getFiles = async (folder_name?: string) => {
   return response
 }
 
+router.get("/", (req: Request, res: Response) => {
+  res.json({ working: true })
+})
+
 router.get("/files", async (req: Request, res: Response) => {
   res.json(await getFiles())
 })

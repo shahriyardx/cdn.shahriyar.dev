@@ -8,7 +8,8 @@
   "scripts": {
     "start": "ts-node src/app.ts",
     "start:prod": "cross-env NODE_ENV=production ts-node src/app.ts",
-    "dev": "nodemon --config nodemon.json src/app.ts"
+    "dev": "nodemon --config nodemon.json src/app.ts",
+    "deploy": "pm2 stop cdn && git pull && prisma generate && prisma db push && pm2 start cdn"
   },
   "dependencies": {
     "@prisma/client": "^4.6.1",

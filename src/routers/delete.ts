@@ -31,9 +31,9 @@ router.delete("/:image", validateToken, async (req: Request, res: Response) => {
     if (fs.existsSync(file_path)) fs.rmSync(file_path)
     await prisma.image.delete({ where: { id: data.id } })
 
-    res.json({ message: "file deleted" })
+    res.json({ success: true, message: "file deleted" })
   } else {
-    res.status(404).json({ message: "file not found" })
+    res.status(404).json({ success: false, message: "file not found" })
   }
 })
 

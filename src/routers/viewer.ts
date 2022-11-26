@@ -28,7 +28,7 @@ const getFiles = async (folder_name?: string) => {
     delete_url: `${config.get("base_url")}/delete/${image.filename}`,
   }))
 
-  return response
+  return {success: true, files: response}
 }
 
 router.get("/", (req: Request, res: Response) => {

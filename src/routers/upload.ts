@@ -44,7 +44,9 @@ router.post(
     try {
       fs.writeFileSync(final_destination, image.buffer)
     } catch {
-      return res.status(500).json({ message: "Error creating file" })
+      return res
+        .status(500)
+        .json({ success: false, message: "Error creating file" })
     }
 
     try {
@@ -56,20 +58,24 @@ router.post(
           filesize: image.size,
         },
       })
-    } catch (err) { 
+    } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         if (err.code === "P2002") {
-          return res.status(400).json({ message: "File already exists" })
+          return res
+            .status(400)
+            .json({ success: false, message: "File already exists" })
         } else {
-          return res.status(500).json({ message: "Internal server error" })
+          return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" })
         }
       }
     }
 
     res.json({
       success: true,
-      image_url: `${config.get('base_url')}/${fileName}`,
-      delete_url: `${config.get('base_url')}/delete/${fileName}`,
+      image_url: `${config.get("base_url")}/${fileName}`,
+      delete_url: `${config.get("base_url")}/delete/${fileName}`,
     })
   }
 )
